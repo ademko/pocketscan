@@ -1,0 +1,18 @@
+<!DOCTYPE RCC><RCC version="1.0">
+<qresource>
+  <file>crop.png</file>
+  <file>file_add.png</file>
+  <file>img_add.png</file>
+  <file>img_left.png</file>
+  <file>img_remove.png</file>
+  <file>img_right.png</file>
+  <file>img_dupe.png</file>
+  <file>img_del.png</file>
+  <file>levels.png</file>
+  <file>rotate_left.png</file>
+  <file>rotate_right.png</file>
+  <file>vcr_back.png</file>
+  <file>vcr_forward.png</file>
+  <file>logo.png</file>
+</qresource>
+</RCC>
