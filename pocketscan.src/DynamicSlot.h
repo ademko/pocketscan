@@ -5,7 +5,6 @@
  * See the accompanying file LICENSE.MIT.txt for details.
  */
 
-
 #ifndef __INCLUDED_DYNAMICSLOT_H__
 #define __INCLUDED_DYNAMICSLOT_H__
 
@@ -24,32 +23,23 @@ class DynamicSlot;
  * isn't there out of the box.
  *
  * @author Aleksander Demko
- */ 
-class DynamicSlot : public QObject
-{
+ */
+class DynamicSlot : public QObject {
     Q_OBJECT
 
   private:
-    class Handler
-    {
+    class Handler {
       public:
         virtual ~Handler();
 
         virtual void trigger(void) = 0;
     };
 
-    template <class C>
-    class MethodHander : public Handler
-    {
+    template <class C> class MethodHander : public Handler {
       public:
         MethodHander(C *objinstance, void (C::*method)(void))
-          : dm_objinstance(objinstance), dm_method(method)
-        {
-        }
-        virtual void trigger(void)
-        {
-          (dm_objinstance->*dm_method)();
-        }
+            : dm_objinstance(objinstance), dm_method(method) {}
+        virtual void trigger(void) { (dm_objinstance->*dm_method)(); }
 
       private:
         C *dm_objinstance;
@@ -57,20 +47,19 @@ class DynamicSlot : public QObject
     };
 
   public:
-    //typedef void (C1::*handler)(handler_event&);
+    // typedef void (C1::*handler)(handler_event&);
 
     /**
      * Constructor for making a dynamic slot for class method
      * functions.
      *
      * @author Aleksander Demko
-     */ 
+     */
     template <class C>
-      DynamicSlot(C *objinstance, void (C::*method)(void))
-        : dm_h(new MethodHander<C>(objinstance, method))
-      {
+    DynamicSlot(C *objinstance, void (C::*method)(void))
+        : dm_h(new MethodHander<C>(objinstance, method)) {
         init();
-      }
+    }
 
     // future, add static function-ctor
 
@@ -85,8 +74,8 @@ class DynamicSlot : public QObject
      * in the future.
      *
      * @author Aleksander Demko
-     */ 
-    QObject * sender(void) const { return dm_sender; }
+     */
+    QObject *sender(void) const { return dm_sender; }
 
   public slots:
     /**
@@ -94,15 +83,15 @@ class DynamicSlot : public QObject
      * to triggered.
      *
      * @author Aleksander Demko
-     */ 
+     */
     void trigger(void);
 
   private:
     void init(void);
+
   private:
     std::auto_ptr<Handler> dm_h;
     QObject *dm_sender;
 };
 
 #endif
-

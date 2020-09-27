@@ -14,8 +14,7 @@
 
 #include <Project.h>
 
-class TabBar : public QWidget, public Listener
-{
+class TabBar : public QWidget, public Listener {
     Q_OBJECT
 
   public:
@@ -43,6 +42,4 @@ class TabBar : public QWidget, public Listener
     QLabel *dm_title, *dm_desc;
 };
 
-
 #endif
-

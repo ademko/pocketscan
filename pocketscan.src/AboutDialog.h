@@ -9,8 +9,8 @@
 #define __INCLUDED_POCKETSCAN_ABOUTDIALOG_H__
 
 #include <QDialog>
-#include <QVBoxLayout>
 #include <QTabWidget>
+#include <QVBoxLayout>
 
 class AboutDialog;
 
@@ -18,9 +18,8 @@ class AboutDialog;
  * A handy about box builder
  *
  * @author Aleksander Demko
- */ 
-class AboutDialog : public QDialog
-{
+ */
+class AboutDialog : public QDialog {
   public:
     /// constructor
     AboutDialog(QWidget *parent, const QString &appname);
@@ -34,15 +33,17 @@ class AboutDialog : public QDialog
      * Either/or tagline and copyyear may be "".
      *
      * @author Aleksander Demko
-     */ 
-    void addTitle(const QString &title,
-        const QString &tagline = "",
-        const QString &copyyear = "", const QString &copywho = "");
+     */
+    void addTitle(const QString &title, const QString &tagline = "",
+                  const QString &copyyear = "", const QString &copywho = "");
 
-    //addTitle(QString &
+    // addTitle(QString &
 
-    void addContact(const QString &contact, const QString &email = "", const QString &web = "");
-    void addVersion(const QString &version, const QString &flags = "", bool showqtversion = true, bool showstockflags = true, bool showbuildtime = true);
+    void addContact(const QString &contact, const QString &email = "",
+                    const QString &web = "");
+    void addVersion(const QString &version, const QString &flags = "",
+                    bool showqtversion = true, bool showstockflags = true,
+                    bool showbuildtime = true);
     void addParagraph(const QString &title, const QString &value);
 
     void addDisclaimer(void);
@@ -62,4 +63,3 @@ class AboutDialog : public QDialog
 };
 
 #endif
-

@@ -10,9 +10,9 @@
 
 #include <vector>
 
-#include <QWidget>
 #include <QHBoxLayout>
 #include <QScrollBar>
+#include <QWidget>
 
 #include <Project.h>
 
@@ -21,9 +21,8 @@
  * Doesn't include the add button or the scroll bar.
  *
  * @author Aleksander Demko
- */ 
-class TileView : public QWidget, public Listener
-{
+ */
+class TileView : public QWidget, public Listener {
     Q_OBJECT
 
   public:
@@ -43,10 +42,10 @@ class TileView : public QWidget, public Listener
 
   private:
     class Tile;
-    class ToolBar;    // still short on names :)
-    class Widget; // yeah, im short on names here :)
+    class ToolBar; // still short on names :)
+    class Widget;  // yeah, im short on names here :)
 
-    typedef std::vector<Widget*> WidgetList;
+    typedef std::vector<Widget *> WidgetList;
 
     QHBoxLayout *dm_hbox;
     WidgetList dm_widgets;
@@ -60,9 +59,8 @@ class TileView : public QWidget, public Listener
  * Presents a scroll bar that the user can use to change the current image.
  *
  * @author Aleksander Demko
- */ 
-class TileScroller : public QScrollBar, public Listener
-{
+ */
+class TileScroller : public QScrollBar, public Listener {
     Q_OBJECT
 
   public:
@@ -80,4 +78,3 @@ class TileScroller : public QScrollBar, public Listener
 };
 
 #endif
-

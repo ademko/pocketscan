@@ -15,9 +15,8 @@
  * names with numbers inserted into them.
  *
  * @author Aleksander Demko
- */ 
-class FileNameSeries
-{
+ */
+class FileNameSeries {
   public:
     /// ctor
     FileNameSeries(const QString &seedFileName);
@@ -33,4 +32,3 @@ class FileNameSeries
 };
 
 #endif
-

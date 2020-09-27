@@ -10,19 +10,18 @@
 
 #include <hydra/TR1.h>
 
+#include <QColor>
 #include <QImage>
 #include <QMutex>
-#include <QColor>
 
 /**
  * Base interface for all parallelizable image algorithms
  *
  * @author Aleksander Demko
- */ 
-class ImageAlg
-{
+ */
+class ImageAlg {
   public:
-    virtual ~ImageAlg() { }
+    virtual ~ImageAlg() {}
 
     /**
      * Runs the algoritm.
@@ -30,7 +29,7 @@ class ImageAlg
      * 0 means "all cpus"
      *
      * @author Aleksander Demko
-     */ 
+     */
     void run(int numcpu = 0);
 
   protected:
@@ -49,12 +48,11 @@ class ImageAlg
  * The texturemapping algorithm for ClipOp
  *
  * @author Aleksander Demko
- */ 
-class ClipAlg : public ImageAlg
-{
+ */
+class ClipAlg : public ImageAlg {
   public:
-    typedef std::array<QPointF,4> PointFArray;
-    typedef std::array<QPoint,4> PointArray;
+    typedef std::array<QPointF, 4> PointFArray;
+    typedef std::array<QPoint, 4> PointArray;
 
   public:
     // the corners must be "sorted" via ClipOp::rearrange()
@@ -81,12 +79,12 @@ class ClipAlg : public ImageAlg
  * Same as ClipAlg, but using bilinear interpolation.
  *
  * @author Aleksander Demko
- */ 
-class InterClipAlg : public ClipAlg
-{
+ */
+class InterClipAlg : public ClipAlg {
   public:
     // the corners must be "sorted" via ClipOp::rearrange()
     InterClipAlg(const QImage &src, const PointFArray &corners);
+
   protected:
     virtual void process(size_t y, size_t numrows);
 };
@@ -95,20 +93,19 @@ class InterClipAlg : public ClipAlg
  * Computes histo grams.
  *
  * @author Aleksander Demko
- */ 
-class HistoAlg : public ImageAlg
-{
+ */
+class HistoAlg : public ImageAlg {
   public:
     static const int SIZE = 256;
     static const int HISTO_FACTOR = 256 / SIZE;
 
-    typedef std::array<int,SIZE> HistoArray;
+    typedef std::array<int, SIZE> HistoArray;
 
   public:
     HistoAlg(const QImage &src);
 
-    HistoArray & countArray(void) { return dm_count; }
-    const HistoArray & countArray(void) const { return dm_count; }
+    HistoArray &countArray(void) { return dm_count; }
+    const HistoArray &countArray(void) const { return dm_count; }
 
     int countMax(void) const { return dm_countmax; }
 
@@ -132,14 +129,13 @@ class HistoAlg : public ImageAlg
  *
  * @author Aleksander Demko
  */
-class OldLevelAlg : public ImageAlg
-{
+class OldLevelAlg : public ImageAlg {
   public:
-    //const static int SIZE = 3;
+    // const static int SIZE = 3;
     const static int WHITE = 255;
     const static int MID_OUT = 127;
 
-    typedef std::array<int,3> MarkArray;
+    typedef std::array<int, 3> MarkArray;
 
   public:
     OldLevelAlg(const QImage &src, const MarkArray &marks);
@@ -164,23 +160,23 @@ class OldLevelAlg : public ImageAlg
  *
  * @author Aleksander Demko
  */
-class NewLevelAlg : public ImageAlg
-{
+class NewLevelAlg : public ImageAlg {
   public:
-    //const static int SIZE = 3;
+    // const static int SIZE = 3;
     const static int WHITE = 255;
     const static int MID_OUT = 127;
 
-    typedef std::array<int,3> MarkArray;
-    typedef std::array<int,2> RangeArray;
+    typedef std::array<int, 3> MarkArray;
+    typedef std::array<int, 2> RangeArray;
 
   public:
     /**
      * marks are the 3 level marks, range is the output range
      *
      * @author Aleksander Demko
-     */ 
-    NewLevelAlg(const QImage &src, const MarkArray &marks, const RangeArray &range);
+     */
+    NewLevelAlg(const QImage &src, const MarkArray &marks,
+                const RangeArray &range);
 
     QImage &output(void) { return dm_output; }
 
@@ -190,6 +186,7 @@ class NewLevelAlg : public ImageAlg
     virtual void process(size_t ystart, size_t numrows);
 
     inline int capChannel(int col);
+
   protected:
     const QImage &dm_src;
 
@@ -224,16 +221,17 @@ typedef NewLevelAlg LevelAlg;
  * These are algorithms that calcualte logical values for each pixel.
  *
  * @author Aleksander Demko
- */ 
-class ThresholdAlg : public ImageAlg
-{
+ */
+class ThresholdAlg : public ImageAlg {
   public:
     ThresholdAlg(const QImage &src);
 
     QImage &output(void) { return dm_output; }
 
     size_t trueCount(void) const { return dm_truecount; }
-    size_t totalCount(void) const { return dm_output.width() * dm_output.height(); }
+    size_t totalCount(void) const {
+        return dm_output.width() * dm_output.height();
+    }
 
   protected:
     virtual size_t height(void) const { return dm_output.height(); }
@@ -250,39 +248,38 @@ class ThresholdAlg : public ImageAlg
 /**
  * A generic based implementation of ThresholdAlg
  * @author Aleksander Demko
- */ 
-template <class FUNC> class GenericThresholdAlg : public ThresholdAlg
-{
+ */
+template <class FUNC> class GenericThresholdAlg : public ThresholdAlg {
   public:
-    GenericThresholdAlg(const QImage &src, const FUNC &f = FUNC() ) : ThresholdAlg(src), dm_func(f) { }
+    GenericThresholdAlg(const QImage &src, const FUNC &f = FUNC())
+        : ThresholdAlg(src), dm_func(f) {}
 
   protected:
-    virtual void process(size_t ystart, size_t numrows)
-    {
-      int w = dm_output.width(), x, y;
-      QColor c, hsv;
-      QRgb W = QColor(Qt::white).rgb();
-      QRgb B = QColor(Qt::black).rgb();
-      size_t mycount = 0;
-      bool b;
+    virtual void process(size_t ystart, size_t numrows) {
+        int w = dm_output.width(), x, y;
+        QColor c, hsv;
+        QRgb W = QColor(Qt::white).rgb();
+        QRgb B = QColor(Qt::black).rgb();
+        size_t mycount = 0;
+        bool b;
 
-      for (y=ystart; y<ystart+numrows; ++y)
-        for (x=0; x<w; ++x) {
-          c = dm_src.pixel(x, y);
+        for (y = ystart; y < ystart + numrows; ++y)
+            for (x = 0; x < w; ++x) {
+                c = dm_src.pixel(x, y);
 
-          b = dm_func(c);
+                b = dm_func(c);
 
-          dm_output.setPixel(x, y, b ? W : B);
+                dm_output.setPixel(x, y, b ? W : B);
 
-          if (b)
-            ++mycount;
+                if (b)
+                    ++mycount;
+            }
+
+        if (mycount > 0) {
+            QMutexLocker L(&dm_truemutex);
+
+            dm_truecount += mycount;
         }
-
-      if (mycount>0) {
-        QMutexLocker L(&dm_truemutex);
-
-        dm_truecount += mycount;
-      }
     }
 
   protected:
@@ -290,4 +287,3 @@ template <class FUNC> class GenericThresholdAlg : public ThresholdAlg
 };
 
 #endif
-

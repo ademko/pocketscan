@@ -12,8 +12,7 @@
 
 #include <Project.h>
 
-class LevelEditor : public QWidget
-{
+class LevelEditor : public QWidget {
     Q_OBJECT
 
   public:
@@ -28,14 +27,15 @@ class LevelEditor : public QWidget
      * Opens a level editor on the given image.
      *
      * @author Aleksander Demko
-     */ 
-    //LevelEditor(const Histogram &histo, const LevelAlg::MarkArray &initialMarks);
+     */
+    // LevelEditor(const Histogram &histo, const LevelAlg::MarkArray
+    // &initialMarks);
 
     void unsetHistoLevels(void);
     void setHisto(const Histogram &histo);
     void setLevels(const LevelAlg::MarkArray &initialMarks);
 
-    const LevelAlg::MarkArray & marks(void) const { return dm_marks; }
+    const LevelAlg::MarkArray &marks(void) const { return dm_marks; }
 
   signals:
     void levelChanged(void);
@@ -49,9 +49,11 @@ class LevelEditor : public QWidget
     virtual void mouseReleaseEvent(QMouseEvent *event);
 
   private:
-    static QPoint baseHisto(void) { return QPoint(BORDER,BORDER); }
+    static QPoint baseHisto(void) { return QPoint(BORDER, BORDER); }
     QSize sizeHisto(void) { return dm_pixmap.size(); }
-    QPoint baseTri(void) { return QPoint(BORDER, BORDER + dm_pixmap.size().height()); }
+    QPoint baseTri(void) {
+        return QPoint(BORDER, BORDER + dm_pixmap.size().height());
+    }
     QSize sizeTri(void) { return QSize(dm_pixmap.size().width(), TRI_HEIGHT); }
 
     void opToPixels(void);
@@ -75,8 +77,7 @@ class LevelEditor : public QWidget
     int dm_selected;
 };
 
-class RangeEditor : public QWidget
-{
+class RangeEditor : public QWidget {
     Q_OBJECT
 
   public:
@@ -90,7 +91,7 @@ class RangeEditor : public QWidget
     void unsetRange(void);
     void setRange(const LevelAlg::RangeArray &r);
 
-    const LevelAlg::RangeArray & range(void) const { return dm_range; }
+    const LevelAlg::RangeArray &range(void) const { return dm_range; }
 
   signals:
     void levelChanged(void);
@@ -105,7 +106,10 @@ class RangeEditor : public QWidget
 
   private:
     QPoint baseTri(void) { return QPoint(BORDER, BORDER); }
-    QSize sizeTri(void) { assert(dm_screenwidth>0); return QSize(dm_screenwidth-2*BORDER, TRI_HEIGHT); }
+    QSize sizeTri(void) {
+        assert(dm_screenwidth > 0);
+        return QSize(dm_screenwidth - 2 * BORDER, TRI_HEIGHT);
+    }
 
     void opToPixels(void);
     void pixelsToOp(void);
@@ -126,4 +130,3 @@ class RangeEditor : public QWidget
 };
 
 #endif
-

@@ -12,12 +12,16 @@
 
 #include <desktop/LoadCache.h>
 
-QSize calcAspect(const QSize &current, const QSize &wantedFrame, bool growtofit);
-void calcAspect(unsigned long C, unsigned long R, unsigned long WC, unsigned long WR, unsigned long &c, unsigned long &r, bool growtofit);
+QSize calcAspect(const QSize &current, const QSize &wantedFrame,
+                 bool growtofit);
+void calcAspect(unsigned long C, unsigned long R, unsigned long WC,
+                unsigned long WR, unsigned long &c, unsigned long &r,
+                bool growtofit);
 
 /// like calcAspect, but will only scale by integer ratios
 /// is this even useful? perhaps power of 2 then?
-QSize calcAspectEven(const QSize &current, const QSize &wantedFrame, bool growtofit);
+QSize calcAspectEven(const QSize &current, const QSize &wantedFrame,
+                     bool growtofit);
 
 class ImageFileCache;
 
@@ -26,9 +30,8 @@ class ImageFileCache;
  * of the image as needed. The rescaled versions however are not cached.
  *
  * @author Aleksander Demko
- */ 
-class ImageFileCache
-{
+ */
+class ImageFileCache {
   public:
     /// constructor
     ImageFileCache(int maxhold = 10);
@@ -38,7 +41,9 @@ class ImageFileCache
      *
      * @author Aleksander Demko
      */
-    bool hasImage(const QString &fullfilename) const { return dm_cache.containsItem(fullfilename); }
+    bool hasImage(const QString &fullfilename) const {
+        return dm_cache.containsItem(fullfilename);
+    }
 
     /**
      * Loads the given file as an image, from cache if possible.
@@ -46,14 +51,16 @@ class ImageFileCache
      * image will be returned.
      *
      * @author Aleksander Demko
-     */ 
-    desktop::cache_ptr<QImage> getImage(const QString &fullfilename) { return dm_cache.getItem(fullfilename); }
+     */
+    desktop::cache_ptr<QImage> getImage(const QString &fullfilename) {
+        return dm_cache.getItem(fullfilename);
+    }
 
-    static QPixmap getPixmap(QImage &image, int windoww, int windowh, bool growtofit);
+    static QPixmap getPixmap(QImage &image, int windoww, int windowh,
+                             bool growtofit);
 
   private:
-    class ImageLoader
-    {
+    class ImageLoader {
       public:
         // never returns null... failed loads will simply be empty images
         std::tr1::shared_ptr<QImage> operator()(const QString &fullfilename);
@@ -63,4 +70,3 @@ class ImageFileCache
 };
 
 #endif
-

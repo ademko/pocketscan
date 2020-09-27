@@ -12,14 +12,13 @@
 
 #include <QWidget>
 
-class ImageAddButton : public QWidget
-{
+class ImageAddButton : public QWidget {
     Q_OBJECT
 
   public:
     ImageAddButton(Project *p);
 
-    virtual void handleProjectChanged(Listener *source) { }
+    virtual void handleProjectChanged(Listener *source) {}
 
   private slots:
     void onClick(void);
@@ -29,4 +28,3 @@ class ImageAddButton : public QWidget
 };
 
 #endif
-

@@ -8,8 +8,8 @@
 #ifndef __INCLUDED_POCKETSCAN_WIZARDBAR_H__
 #define __INCLUDED_POCKETSCAN_WIZARDBAR_H__
 
-#include <QPushButton>
 #include <QLabel>
+#include <QPushButton>
 
 #include <Project.h>
 
@@ -18,9 +18,8 @@
  * Used for advancing between the steps of the whole process.
  *
  * @author Aleksander Demko
- */ 
-class WizardBar : public QWidget, public Listener
-{
+ */
+class WizardBar : public QWidget, public Listener {
     Q_OBJECT
 
   public:
@@ -49,4 +48,3 @@ class WizardBar : public QWidget, public Listener
 };
 
 #endif
-

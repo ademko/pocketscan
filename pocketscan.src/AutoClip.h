@@ -12,8 +12,7 @@
 
 #include <ImageAlg.h>
 
-class AutoClip
-{
+class AutoClip {
   public:
     /**
      * Will return clipping params?
@@ -21,12 +20,13 @@ class AutoClip
      * Returns the number of corners found.
      *
      * @author Aleksander Demko
-     */ 
-    int operator()(const QImage &input, ClipAlg::PointFArray &outputpoints, QImage *outputimg = 0);
+     */
+    int operator()(const QImage &input, ClipAlg::PointFArray &outputpoints,
+                   QImage *outputimg = 0);
 
   private:
-    static int findCorners(ClipAlg::PointFArray &outputpoints, const QImage &img);
+    static int findCorners(ClipAlg::PointFArray &outputpoints,
+                           const QImage &img);
 };
 
 #endif
-

@@ -8,10 +8,10 @@
 #ifndef __INCLUDED_POCKETSCAN_MAINWINDOW_H__
 #define __INCLUDED_POCKETSCAN_MAINWINDOW_H__
 
-#include <QMainWindow>
 #include <QHBoxLayout>
-#include <QPrinter>
+#include <QMainWindow>
 #include <QMenu>
+#include <QPrinter>
 
 #include <Project.h>
 
@@ -24,29 +24,29 @@ class TabBar;
 // will not clear outlist, only append to it
 void expandImageDirectory(const QString &dirname, QStringList &outlist);
 
-class MainWindow : public QMainWindow
-{
+class MainWindow : public QMainWindow {
     Q_OBJECT
 
   public:
-    enum { 
-      DEMO_EDITION = 0,
-      STANDARD_EDITION = 1,
-      PRO_EDITION = 2,
-      ULTIMATE_EDITION = 3,
+    enum {
+        DEMO_EDITION = 0,
+        STANDARD_EDITION = 1,
+        PRO_EDITION = 2,
+        ULTIMATE_EDITION = 3,
     };
+
   public:
     MainWindow(void);
 
     virtual ~MainWindow();
 
-    static MainWindow * instance(void) { return dm_instance; }
+    static MainWindow *instance(void) { return dm_instance; }
 
     int edition(void) const { return dm_edition; }
 
-    const StepList & stepList(void) const { return dm_steplist; }
+    const StepList &stepList(void) const { return dm_steplist; }
 
-    Project & project(void) { return dm_project; }
+    Project &project(void) { return dm_project; }
 
   public slots:
     void onNew(void);
@@ -76,8 +76,7 @@ class MainWindow : public QMainWindow
     void updateTitle(void);
 
   private:
-    class RecentFiles : public QMenu
-    {
+    class RecentFiles : public QMenu {
       public:
         RecentFiles(MainWindow *parent);
         void prependFile(const QString &fileName, int type);
@@ -89,7 +88,7 @@ class MainWindow : public QMainWindow
       private:
         MainWindow *dm_parent;
 
-        typedef std::vector<QAction*> actions_t;
+        typedef std::vector<QAction *> actions_t;
 
         actions_t dm_actions;
     };
@@ -104,7 +103,7 @@ class MainWindow : public QMainWindow
 
     TileView *dm_tiles;
     TileScroller *dm_scroller;
-    //ImageAddButton *dm_addbut;
+    // ImageAddButton *dm_addbut;
     TabBar *dm_tabbar;
 
     Project dm_project;
@@ -114,4 +113,3 @@ class MainWindow : public QMainWindow
 };
 
 #endif
-

@@ -7,44 +7,40 @@
 
 #include <ImageAddButton.h>
 
-#include <QVBoxLayout>
-#include <QPushButton>
-#include <QFileDialog>
 #include <QDebug>
+#include <QFileDialog>
+#include <QPushButton>
+#include <QVBoxLayout>
 
-ImageAddButton::ImageAddButton(Project *p)
-  : dm_project(p)
-{
-  QVBoxLayout *v = new QVBoxLayout;
-  QPushButton *but = new QPushButton(QIcon(":/file_add.png"), "Add More Images...");
+ImageAddButton::ImageAddButton(Project *p) : dm_project(p) {
+    QVBoxLayout *v = new QVBoxLayout;
+    QPushButton *but =
+        new QPushButton(QIcon(":/file_add.png"), "Add More Images...");
 
-  connect(but, SIGNAL(clicked(bool)), this, SLOT(onClick()));
+    connect(but, SIGNAL(clicked(bool)), this, SLOT(onClick()));
 
-  v->addStretch();
-  v->addWidget(but);
-  v->addStretch();
+    v->addStretch();
+    v->addWidget(but);
+    v->addStretch();
 
-  setLayout(v);
+    setLayout(v);
 }
 
-void ImageAddButton::onClick(void)
-{
-  QFileDialog dlg;
+void ImageAddButton::onClick(void) {
+    QFileDialog dlg;
 
-  QStringList filters;
-  filters << "JPEG Image files (*.jpg *.jpeg)"
-    << "Any files (*)";
+    QStringList filters;
+    filters << "JPEG Image files (*.jpg *.jpeg)"
+            << "Any files (*)";
 
+    dlg.setWindowTitle("Add Images");
+    dlg.setFileMode(QFileDialog::ExistingFiles);
+    dlg.setAcceptMode(QFileDialog::AcceptOpen);
+    dlg.setNameFilters(filters);
 
-  dlg.setWindowTitle("Add Images");
-  dlg.setFileMode(QFileDialog::ExistingFiles);
-  dlg.setAcceptMode(QFileDialog::AcceptOpen);
-  dlg.setNameFilters(filters);
+    if (dlg.exec() != QDialog::Accepted)
+        return;
 
-  if (dlg.exec() != QDialog::Accepted)
-    return;
-
-  dm_project->appendFiles(dlg.selectedFiles());
-  dm_project->notifyChange(0);
+    dm_project->appendFiles(dlg.selectedFiles());
+    dm_project->notifyChange(0);
 }
-

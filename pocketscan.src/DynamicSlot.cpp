@@ -7,19 +7,12 @@
 
 #include <DynamicSlot.h>
 
-DynamicSlot::Handler::~Handler()
-{
+DynamicSlot::Handler::~Handler() {}
+
+void DynamicSlot::trigger(void) {
+    dm_sender = QObject::sender();
+    dm_h->trigger();
+    dm_sender = 0;
 }
 
-void DynamicSlot::trigger(void)
-{
-  dm_sender = QObject::sender();
-  dm_h->trigger();
-  dm_sender = 0;
-}
-
-void DynamicSlot::init(void)
-{
-  dm_sender = 0;
-}
-
+void DynamicSlot::init(void) { dm_sender = 0; }
