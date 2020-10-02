@@ -14,6 +14,7 @@
 #include <ImageAlg.h>
 
 #include <QProgressDialog>
+#include <QPrinter>
 #include <QString>
 
 #include <hydra/NodePath.h>

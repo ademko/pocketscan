@@ -63,7 +63,7 @@ class ImageFileCache {
     class ImageLoader {
       public:
         // never returns null... failed loads will simply be empty images
-        std::tr1::shared_ptr<QImage> operator()(const QString &fullfilename);
+        std::shared_ptr<QImage> operator()(const QString &fullfilename);
     };
 
     desktop::LoadCache<QImage, ImageLoader> dm_cache;

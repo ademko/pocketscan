@@ -14,6 +14,7 @@
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
+#include <QMimeData>
 #include <QPainter>
 #include <QPrintDialog>
 #include <QPrintPreviewDialog>
@@ -296,12 +297,12 @@ void MainWindow::onShowAbout(void) {
     AboutDialog about(this, "PocketScan");
 
     about.addPixmap(QPixmap(":/logo.png"));
-    about.addTitle("PocketScan", "", "2012", "Aleksander Demko");
+    about.addTitle("PocketScan", "", "2020", "Aleksander Demko");
 
     about.addContact("Aleksander Demko", "ademko@gmail.com",
                      "http://wexussoftware.com/pocketscan/");
     about.addVersion(
-        "0.21 " +
+        "1.0.0 " +
         QString(dm_edition == ULTIMATE_EDITION ? "Ultimate" : "Standard")
 #ifndef NDEBUG
     );

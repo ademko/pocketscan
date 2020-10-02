@@ -49,7 +49,7 @@ QSize calcAspectEven(const QSize &current, const QSize &wantedFrame,
     QSize ret(current);
 
     if (!growtofit && ret.width() < wantedFrame.width() &&
-        ret.height() << wantedFrame.height())
+        ret.height() < wantedFrame.height())
         return ret;
 
     double scr, scc;
@@ -111,9 +111,9 @@ QPixmap ImageFileCache::getPixmap(QImage &image, int windoww, int windowh,
     return QPixmap::fromImage(scaled_image);
 }
 
-std::tr1::shared_ptr<QImage>
+std::shared_ptr<QImage>
 ImageFileCache::ImageLoader::operator()(const QString &fullfilename) {
-    std::tr1::shared_ptr<QImage> i(new QImage);
+    std::shared_ptr<QImage> i(new QImage);
     bool ok = i->load(fullfilename);
 
     /*

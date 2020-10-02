@@ -694,7 +694,7 @@ bool Project::saveXML(const QString &filename) {
 
     try {
         saveXML(NodePath(doc), QFileInfo(filename).absolutePath());
-    } catch (NodePath::error) {
+    } catch (const NodePath::error &) {
         return false;
     }
 
@@ -733,7 +733,7 @@ bool Project::loadXML(const QString &filename) {
         loadXML(NodePath(readdoc), QFileInfo(filename).absolutePath());
 
         return true;
-    } catch (NodePath::error) {
+    } catch (const NodePath::error &) {
         return false;
     }
 }

@@ -90,7 +90,7 @@ class DynamicSlot : public QObject {
     void init(void);
 
   private:
-    std::auto_ptr<Handler> dm_h;
+    std::unique_ptr<Handler> dm_h;
     QObject *dm_sender;
 };
 
